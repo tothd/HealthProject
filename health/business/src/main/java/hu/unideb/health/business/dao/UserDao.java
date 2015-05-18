@@ -7,5 +7,6 @@ import hu.unideb.health.shared.vo.UserVO;
 public interface UserDao extends GenericDao<UserVO>{
 	
 	UserVO findByNameAndPassword(String name, String password) throws SQLException;
-
+        UserVO findById(Long id) throws SQLException;
+           
 }

@@ -12,8 +12,6 @@ import hu.unideb.health.shared.exception.UserNotFoundException;
 import hu.unideb.health.shared.service.UserDataService;
 import hu.unideb.health.shared.vo.UserAttributeVO;
 import hu.unideb.health.shared.vo.UserVO;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 class UserDataServiceImpl implements UserDataService {
 
@@ -28,14 +26,11 @@ class UserDataServiceImpl implements UserDataService {
         try (Connection conn = ConnectionUtil.createConnection();) {
             UserDao userDao = DaoFactory.getInstance().getDao(conn, DAO_TYPE.USER);
             userDao.insert(user);
-            System.out.println("insert");
             UserVO result = userDao.findByNameAndPassword(user.getName(), user.getPassword());
             userAttribute.setUserId(result.getId());
             UserAttributeDao userAttributeDao = DaoFactory.getInstance().getDao(conn, DAO_TYPE.USER_ATTRIBUTE);
             userAttributeDao.insert(userAttribute);
-            System.out.println("commit");
             conn.commit();
-            System.out.println("commit2");
             return result;
 
         } catch (SQLException e) {
@@ -57,6 +52,34 @@ class UserDataServiceImpl implements UserDataService {
             //TODO log
             throw new RuntimeException(e);
         }
+    }
+
+    @Override
+    public UserAttributeVO findUserDataModificationById(Long id) {
+        try (Connection conn=ConnectionUtil.createConnection();){
+            UserAttributeDao userAttributeDao=DaoFactory.getInstance().getDao(conn, DAO_TYPE.USER_ATTRIBUTE);
+            
+            UserAttributeVO userAttributeVO=userAttributeDao.findLastByUser(id);
+            return userAttributeVO;
+        } catch (SQLException ex) {
+            
+            throw new RuntimeException(ex);
+        }
+        
+    }
+
+    @Override
+    public void modifyUserAttribute(UserAttributeVO userAttributeVO) {
+        try(Connection conn=ConnectionUtil.createConnection();){
+            UserAttributeDao userAttributeDao=DaoFactory.getInstance().getDao(conn, DAO_TYPE.USER_ATTRIBUTE);
+            userAttributeDao.insert(userAttributeVO);
+            conn.commit();
+        } catch (SQLException ex) {
+            throw new RuntimeException(ex);
+        }
+                
+        
+        
     }
 
 }

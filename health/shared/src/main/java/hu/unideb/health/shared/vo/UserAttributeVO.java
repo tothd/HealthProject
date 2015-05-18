@@ -18,6 +18,25 @@ public class UserAttributeVO implements Serializable{
     private int waist;
     private Date creationDate;
     private long userId;
+    private String gender;
+    private Date birthDate;
+
+    public Date getBirthDate() {
+        return birthDate;
+    }
+
+    public void setBirthDate(Date birthDate) {
+        this.birthDate = birthDate;
+    }
+
+    public String getGender() {
+        return gender;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
+    }
+    
 
     public long getUserId() {
         return userId;

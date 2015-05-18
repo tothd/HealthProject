@@ -5,7 +5,11 @@
  */
 package hu.unideb.health.gui;
 
+import hu.unideb.health.business.service.impl.ServiceLocator;
+import hu.unideb.health.shared.vo.UserAttributeVO;
+import hu.unideb.health.shared.vo.UserVO;
 import java.awt.event.KeyEvent;
+import java.util.Date;
 
 /**
  *
@@ -18,6 +22,24 @@ public class Functions extends javax.swing.JFrame {
      */
     public Functions() {
         initComponents();
+    }
+
+    private UserAttributeVO userAttributeVO;
+    
+    @Override
+    public void setVisible(boolean b) {
+        if (b) {
+            UserVO user = FrameContainer.getSignedUser();
+            nameLabel.setText(user.getName());
+            userAttributeVO= ServiceLocator.getUserDataService().findUserDataModificationById(user.getId());
+            //KIJAVÍTANI
+            dateLabel.setText(userAttributeVO.getCreationDate().toString());
+
+            heightTxtField.setText(new String(userAttributeVO.getHeight() + ""));
+            weightTxtField.setText(new String(userAttributeVO.getWeight() + ""));
+            waistTxtField.setText(new String(userAttributeVO.getWaist() + ""));
+        }
+        super.setVisible(b); //To change body of generated methods, choose Tools | Templates.
     }
 
     /**
@@ -116,6 +138,11 @@ public class Functions extends javax.swing.JFrame {
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Adatok"));
 
         modifierButton.setText("Módosít");
+        modifierButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                modifierButtonActionPerformed(evt);
+            }
+        });
 
         nameLabel.setText("Név");
 
@@ -218,31 +245,31 @@ public class Functions extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void reportButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_reportButtonMouseClicked
-       FrameContainer.showReport();
-       FrameContainer.hideFunctions();
+        FrameContainer.showReport();
+        FrameContainer.hideFunctions();
     }//GEN-LAST:event_reportButtonMouseClicked
 
     private void bmiButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bmiButtonMouseClicked
-        
+
     }//GEN-LAST:event_bmiButtonMouseClicked
 
     private void weightTxtFieldKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_weightTxtFieldKeyTyped
-       char c=evt.getKeyChar();
-        if (!(Character.isDigit(c) || c==KeyEvent.VK_BACK_SPACE || c==KeyEvent.VK_DELETE)) {
+        char c = evt.getKeyChar();
+        if (!(Character.isDigit(c) || c == KeyEvent.VK_BACK_SPACE || c == KeyEvent.VK_DELETE)) {
             evt.consume();
         }
     }//GEN-LAST:event_weightTxtFieldKeyTyped
 
     private void heightTxtFieldKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_heightTxtFieldKeyTyped
-       char c=evt.getKeyChar();
-        if (!(Character.isDigit(c) || c==KeyEvent.VK_BACK_SPACE || c==KeyEvent.VK_DELETE)) {
+        char c = evt.getKeyChar();
+        if (!(Character.isDigit(c) || c == KeyEvent.VK_BACK_SPACE || c == KeyEvent.VK_DELETE)) {
             evt.consume();
         }
     }//GEN-LAST:event_heightTxtFieldKeyTyped
 
     private void waistTxtFieldKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_waistTxtFieldKeyTyped
-        char c=evt.getKeyChar();
-        if (!(Character.isDigit(c) || c==KeyEvent.VK_BACK_SPACE || c==KeyEvent.VK_DELETE)) {
+        char c = evt.getKeyChar();
+        if (!(Character.isDigit(c) || c == KeyEvent.VK_BACK_SPACE || c == KeyEvent.VK_DELETE)) {
             evt.consume();
         }
     }//GEN-LAST:event_waistTxtFieldKeyTyped
@@ -250,49 +277,33 @@ public class Functions extends javax.swing.JFrame {
     private void bmiButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bmiButtonActionPerformed
         FrameContainer.showResult("bmi");
         FrameContainer.hideFunctions();
-        
+
     }//GEN-LAST:event_bmiButtonActionPerformed
 
     private void bsiButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bsiButtonActionPerformed
         FrameContainer.showResult("bsi");
         FrameContainer.hideFunctions();
-        
+
     }//GEN-LAST:event_bsiButtonActionPerformed
+
+    private void modifierButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_modifierButtonActionPerformed
+        //modifyUserData 
+        
+        UserAttributeVO userAttributeVOModify=new UserAttributeVO();
+        userAttributeVOModify.setUserId(FrameContainer.getSignedUser().getId());
+        userAttributeVOModify.setBirthDate(userAttributeVO.getBirthDate());
+        userAttributeVOModify.setCreationDate(new Date());
+        userAttributeVOModify.setGender(userAttributeVO.getGender());
+        userAttributeVOModify.setHeight(Integer.valueOf(heightTxtField.getText()));
+        userAttributeVOModify.setWeight(Integer.valueOf(weightTxtField.getText()));
+        userAttributeVOModify.setWaist(Integer.valueOf(waistTxtField.getText()));
+        ServiceLocator.getUserDataService().modifyUserAttribute(userAttributeVOModify);
+    }//GEN-LAST:event_modifierButtonActionPerformed
 
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Functions.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Functions.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Functions.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Functions.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
 
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new Functions().setVisible(true);
-            }
-        });
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton bmiButton;

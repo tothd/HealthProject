@@ -41,10 +41,8 @@
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="1" max="-2" attributes="0">
                   <Component id="errorMsg" pref="180" max="32767" attributes="0"/>
-                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                      <Component id="usernameTxt" max="32767" attributes="0"/>
-                      <Component id="password" pref="180" max="32767" attributes="0"/>
-                  </Group>
+                  <Component id="usernameTxt" alignment="0" max="32767" attributes="0"/>
+                  <Component id="password" alignment="0" pref="180" max="32767" attributes="0"/>
               </Group>
               <EmptySpace min="-2" pref="108" max="-2" attributes="0"/>
           </Group>

@@ -8,12 +8,15 @@ import java.sql.SQLException;
 import hu.unideb.health.business.dao.AbstractGenericDao;
 import hu.unideb.health.business.dao.UserDao;
 import hu.unideb.health.shared.vo.UserVO;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class UserDaoImpl extends AbstractGenericDao<UserVO> implements UserDao {
 
     public UserDaoImpl(Connection conn) {
         super(conn);
     }
+    
 
     @Override
     protected String getInsertSql() {
@@ -63,6 +66,23 @@ public class UserDaoImpl extends AbstractGenericDao<UserVO> implements UserDao {
                 result.setId(rs.getLong("id"));
                 result.setName(name);
                 result.setPassword(password);
+            }
+        }
+        return result;
+    }
+
+    @Override
+    public UserVO findById(Long id) throws SQLException {
+        UserVO result=null;
+        try (PreparedStatement stmt=this.conn
+                    .prepareStatement("select * from user where id= ?");){
+            stmt.setLong(1, id);
+            ResultSet rs=stmt.executeQuery();
+            while(rs.next() && result==null){
+                result=new UserVO();
+                result.setId(id);
+                result.setName(rs.getString("name"));
+                result.setPassword(rs.getString("password"));
             }
         }
         return result;

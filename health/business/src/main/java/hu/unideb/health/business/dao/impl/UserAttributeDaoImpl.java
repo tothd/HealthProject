@@ -25,7 +25,7 @@ public class UserAttributeDaoImpl extends AbstractGenericDao<UserAttributeVO> im
 
     @Override
     protected String getInsertSql() {
-        return "insert into user_attributes (height, weight,waist,creationdate,user_fk) values (?, ?, ?, ?, ?)";
+        return "insert into user_attributes (height, weight,waist,creationdate,user_fk,birth_date,gender) values (?, ?, ?, ?, ?, ?, ?)";
     }
 
     @Override
@@ -36,6 +36,8 @@ public class UserAttributeDaoImpl extends AbstractGenericDao<UserAttributeVO> im
         stmt.setInt(3, instance.getWaist());
         stmt.setString(4, new SimpleDateFormat(DATE_FORMAT).format(instance.getCreationDate()));
         stmt.setLong(5, instance.getUserId());
+        stmt.setString(6,new SimpleDateFormat(DATE_FORMAT).format(instance.getBirthDate()));
+        stmt.setString(7, instance.getGender());
 
     }
 
@@ -65,9 +67,9 @@ public class UserAttributeDaoImpl extends AbstractGenericDao<UserAttributeVO> im
     public UserAttributeVO findLastByUser(long id) throws SQLException {
         UserAttributeVO result = null;
         try (PreparedStatement stmt = this.conn
-                .prepareStatement("select * from user_attributes j"
-                        + "oin user on user.id=user_attributes."
-                        + "user_fk where id = ? order by=creationdate");) {
+                .prepareStatement("select * from user_attributes "+
+         "join user on user.id=user_attributes."
+                        + "user_fk where user.id = ? order by creationdate desc");) {
             stmt.setLong(1, id);
             ResultSet rs = stmt.executeQuery();
             while (rs.next() && result == null) {
@@ -76,6 +78,8 @@ public class UserAttributeDaoImpl extends AbstractGenericDao<UserAttributeVO> im
                 result.setWeight(rs.getInt("weight"));
                 result.setWaist(rs.getInt("waist"));
                 result.setCreationDate((new SimpleDateFormat(DATE_FORMAT).parse(rs.getString("creationdate"))));
+                result.setBirthDate(new SimpleDateFormat(DATE_FORMAT).parse(rs.getString("birth_date")));
+                result.setGender(rs.getString("gender"));
             }
         } catch (ParseException ex) {
             //TODO log

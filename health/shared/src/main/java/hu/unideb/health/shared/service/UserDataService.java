@@ -10,5 +10,10 @@ public interface UserDataService {
 	UserVO createUser(UserVO user, UserAttributeVO userAttribute) throws ExistingUserException;
 	
 	UserVO findByNameAndPassword(String name, String password) throws UserNotFoundException;
+        
+        UserAttributeVO findUserDataModificationById(Long id);
+        
+        void modifyUserAttribute(UserAttributeVO userAttributeVO);
+        
 
 }

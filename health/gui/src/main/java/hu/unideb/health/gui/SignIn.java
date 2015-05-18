@@ -7,6 +7,7 @@ package hu.unideb.health.gui;
 
 import hu.unideb.health.business.service.impl.ServiceLocator;
 import hu.unideb.health.shared.exception.UserNotFoundException;
+import hu.unideb.health.shared.vo.UserVO;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -132,8 +133,9 @@ public class SignIn extends javax.swing.JFrame {
     private void signerButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_signerButtonActionPerformed
 
         try {
-            ServiceLocator.getUserDataService().findByNameAndPassword(usernameTxt.getText(),
+            UserVO user=ServiceLocator.getUserDataService().findByNameAndPassword(usernameTxt.getText(),
                     new String(password.getPassword()));
+            FrameContainer.setSignedUser(user);
             FrameContainer.showFunctions();
             FrameContainer.hideSignIn();
         } catch (UserNotFoundException ex) {
@@ -141,6 +143,7 @@ public class SignIn extends javax.swing.JFrame {
             ex.printStackTrace();
             System.out.println("hiba");
         } catch (Throwable t) {
+            t.printStackTrace();
             errorMsg.setText("Belső hiba! " + t.getMessage());
         }
 
