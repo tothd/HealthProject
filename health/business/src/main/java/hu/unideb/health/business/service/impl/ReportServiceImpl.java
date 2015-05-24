@@ -16,6 +16,8 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  *
@@ -23,6 +25,7 @@ import java.util.List;
  */
 public class ReportServiceImpl implements ReportService{
 
+    private static final Logger logger=LoggerFactory.getLogger(ReportServiceImpl.class);
     
     private static final ReportServiceImpl instance = new ReportServiceImpl();
 
@@ -32,6 +35,9 @@ public class ReportServiceImpl implements ReportService{
     
     @Override
     public ReportVO findAllIndexesByUserId(long id) {
+        if(logger.isDebugEnabled()){
+            logger.debug("User id parameter: "+id);
+        }
         ReportVO reportVO=new ReportVO();
         try(Connection conn=ConnectionUtil.createConnection();){
             UserIndexesDao userIndexesDao=DaoFactory.getInstance().getDao(conn, DaoFactory.DAO_TYPE.USER_INDEXES);
@@ -43,6 +49,7 @@ public class ReportServiceImpl implements ReportService{
             reportVO.setUsername(userVO.getName());
             
         } catch (SQLException ex) {
+            logger.error(ex.getMessage(),ex);
             throw new RuntimeException(ex);
         }
         return reportVO;
