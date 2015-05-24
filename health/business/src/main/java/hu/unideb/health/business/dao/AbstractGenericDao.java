@@ -1,61 +1,81 @@
 package hu.unideb.health.business.dao;
 
+import java.awt.Insets;
 import java.io.Serializable;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 
 public abstract class AbstractGenericDao<T extends Serializable> implements GenericDao<T> {
 
-	protected final Connection conn;
+    protected final Connection conn;
 
-	public AbstractGenericDao(Connection conn) {
-		this.conn = conn;
-	}
+    public AbstractGenericDao(Connection conn) {
+        this.conn = conn;
+    }
 
-	public void insert(T instance) throws SQLException {
-		PreparedStatement stmt = null;
-		try {
-			stmt = conn.prepareStatement(getInsertSql());
-			setInsertVariable(stmt, instance);
-			stmt.executeUpdate();
-		} finally {
-			stmt.close();
-		}
-	}
+    public Long insert(T instance) throws SQLException {
+        Long insertId = null;
+        PreparedStatement stmt = null;
+        try {
+            stmt = conn.prepareStatement(getInsertSql(), Statement.RETURN_GENERATED_KEYS);
+            setInsertVariable(stmt, instance);
+            int rows = stmt.executeUpdate();
+            conn.commit();
+            if (rows == 0) {
+                throw new SQLException("Unsucces insert");
+            }
+            try (ResultSet keys = stmt.getGeneratedKeys()) {
+                while (keys.next()) {
+                    insertId = keys.getLong(1);
+                }
+            }
 
-	protected abstract String getInsertSql();
+        } finally {
+            if (stmt != null) {
+                stmt.close();
+            }
+        }
+        if (insertId == null) {
+            throw new SQLException("InsertId is null");
+        }
+        return insertId;
+    }
 
-	protected abstract void setInsertVariable(PreparedStatement stmt, T instance) throws SQLException;
+    protected abstract String getInsertSql();
 
-	public void update(T instance) throws SQLException {
-		PreparedStatement stmt = null;
-		try {
-			stmt = conn.prepareStatement(getUpdateSql());
-			setUpdateVariable(stmt, instance);
-			stmt.executeUpdate();
-		} finally {
-			stmt.close();
-		}
-	}
+    protected abstract void setInsertVariable(PreparedStatement stmt, T instance) throws SQLException;
 
-	protected abstract String getUpdateSql();
+    public void update(T instance) throws SQLException {
+        PreparedStatement stmt = null;
+        try {
+            stmt = conn.prepareStatement(getUpdateSql());
+            setUpdateVariable(stmt, instance);
+            stmt.executeUpdate();
+        } finally {
+            stmt.close();
+        }
+    }
 
-	protected abstract void setUpdateVariable(PreparedStatement stmt, T instance);
+    protected abstract String getUpdateSql();
 
-	public void delete(T instance) throws SQLException {
-		PreparedStatement stmt = null;
-		try {
-			stmt = conn.prepareStatement(getDeleteSql());
-			setDeleteVariable(stmt, instance);
-			stmt.executeUpdate();
-		} finally {
-			stmt.close();
-		}
-	}
+    protected abstract void setUpdateVariable(PreparedStatement stmt, T instance);
 
-	protected abstract String getDeleteSql();
+    public void delete(T instance) throws SQLException {
+        PreparedStatement stmt = null;
+        try {
+            stmt = conn.prepareStatement(getDeleteSql());
+            setDeleteVariable(stmt, instance);
+            stmt.executeUpdate();
+        } finally {
+            stmt.close();
+        }
+    }
 
-	protected abstract void setDeleteVariable(PreparedStatement stmt, T instance);
+    protected abstract String getDeleteSql();
+
+    protected abstract void setDeleteVariable(PreparedStatement stmt, T instance);
 
 }

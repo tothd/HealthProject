@@ -60,13 +60,13 @@ public class FrameContainer {
     
     public static Result result;
     public static void showResult(String index){
-        if(result==null){
-            result=new Result(index);
-        }
+        
+        result=new Result(index);
         result.setVisible(true);
     }
     public static void hideResult(){
         result.setVisible(false);
+        result.dispose();
     }
 
     public static UserVO getSignedUser() {

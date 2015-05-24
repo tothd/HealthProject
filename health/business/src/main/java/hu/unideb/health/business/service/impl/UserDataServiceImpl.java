@@ -1,8 +1,5 @@
 package hu.unideb.health.business.service.impl;
 
-import java.sql.Connection;
-import java.sql.SQLException;
-
 import hu.unideb.health.business.dao.DaoFactory;
 import hu.unideb.health.business.dao.DaoFactory.DAO_TYPE;
 import hu.unideb.health.business.dao.UserAttributeDao;
@@ -12,6 +9,8 @@ import hu.unideb.health.shared.exception.UserNotFoundException;
 import hu.unideb.health.shared.service.UserDataService;
 import hu.unideb.health.shared.vo.UserAttributeVO;
 import hu.unideb.health.shared.vo.UserVO;
+import java.sql.Connection;
+import java.sql.SQLException;
 
 class UserDataServiceImpl implements UserDataService {
 

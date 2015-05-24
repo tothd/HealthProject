@@ -1,19 +1,21 @@
 package hu.unideb.health.business.dao.impl;
 
+import hu.unideb.health.business.calculator.CalculateBMI;
+import hu.unideb.health.business.calculator.CalculateBSI;
+import hu.unideb.health.business.calculator.CalculateWHtR;
+import hu.unideb.health.business.dao.AbstractGenericDao;
+import hu.unideb.health.business.dao.DaoFactory;
+import hu.unideb.health.business.dao.UserAttributeDao;
+import hu.unideb.health.business.dao.UserIndexesDao;
+import hu.unideb.health.shared.vo.UserAttributeVO;
+import hu.unideb.health.shared.vo.UserIndexesVO;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-
-import hu.unideb.health.business.dao.AbstractGenericDao;
-import hu.unideb.health.business.dao.UserAttributeDao;
-import hu.unideb.health.business.dao.UserDao;
-import hu.unideb.health.shared.vo.UserAttributeVO;
-import hu.unideb.health.shared.vo.UserVO;
+import java.sql.Statement;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 public class UserAttributeDaoImpl extends AbstractGenericDao<UserAttributeVO> implements UserAttributeDao {
 
@@ -28,6 +30,30 @@ public class UserAttributeDaoImpl extends AbstractGenericDao<UserAttributeVO> im
         return "insert into user_attributes (height, weight,waist,creationdate,user_fk,birth_date,gender) values (?, ?, ?, ?, ?, ?, ?)";
     }
 
+    @Override
+    public Long insert(UserAttributeVO userAttributeVO) throws SQLException {
+        
+        Long userAttributeId=super.insert(userAttributeVO);
+        
+        double bmi=CalculateBMI.getInstance().calulateIndex(userAttributeVO);
+        double bsi=CalculateBSI.getInstance().calulateIndex(userAttributeVO);
+        double whtr=CalculateWHtR.getInstance().calulateIndex(userAttributeVO);
+        
+        
+        UserIndexesVO userIndexesVO=new UserIndexesVO();
+        userIndexesVO.setBmi(bmi);
+        userIndexesVO.setBsi(bsi);
+        userIndexesVO.setWhtr(whtr);
+        userIndexesVO.setUserAttributeId(userAttributeId);
+  
+        UserIndexesDao userIndexesDao=DaoFactory.getInstance().getDao(this.conn, DaoFactory.DAO_TYPE.USER_INDEXES);
+        
+        userIndexesDao.insert(userIndexesVO);
+                
+        return userAttributeId;
+        
+    }
+    
     @Override
     protected void setInsertVariable(PreparedStatement stmt, UserAttributeVO instance)
             throws SQLException {

@@ -20,5 +20,10 @@
 			<artifactId>shared</artifactId>
 			<version>${version}</version>
 		</dependency>
+                <dependency>
+                    <groupId>com.thoughtworks.xstream</groupId>
+                    <artifactId>xstream</artifactId>
+                </dependency>
+	 
 	</dependencies>
 </project>

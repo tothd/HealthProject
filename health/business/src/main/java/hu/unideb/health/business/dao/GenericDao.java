@@ -5,7 +5,7 @@ import java.sql.SQLException;
 
 public interface GenericDao<T extends Serializable> {
 	
-	void insert(T instance) throws SQLException;
+	Long insert(T instance) throws SQLException;
 	
 	void update(T instance) throws SQLException;
 	

@@ -9,6 +9,7 @@ import hu.unideb.health.business.service.impl.ServiceLocator;
 import hu.unideb.health.shared.vo.UserAttributeVO;
 import hu.unideb.health.shared.vo.UserVO;
 import java.awt.event.KeyEvent;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
@@ -25,6 +26,8 @@ public class Functions extends javax.swing.JFrame {
     }
 
     private UserAttributeVO userAttributeVO;
+    private static final String DATE_FORMAT = "yyyy.MM.dd HH:mm:ss";
+    
     
     @Override
     public void setVisible(boolean b) {
@@ -32,8 +35,9 @@ public class Functions extends javax.swing.JFrame {
             UserVO user = FrameContainer.getSignedUser();
             nameLabel.setText(user.getName());
             userAttributeVO= ServiceLocator.getUserDataService().findUserDataModificationById(user.getId());
-            //KIJAVÍTANI
-            dateLabel.setText(userAttributeVO.getCreationDate().toString());
+            
+            SimpleDateFormat dateFormatter=new SimpleDateFormat(DATE_FORMAT);
+            dateLabel.setText(dateFormatter.format(userAttributeVO.getCreationDate()));
 
             heightTxtField.setText(new String(userAttributeVO.getHeight() + ""));
             weightTxtField.setText(new String(userAttributeVO.getWeight() + ""));
@@ -66,19 +70,18 @@ public class Functions extends javax.swing.JFrame {
         weightTxtField = new javax.swing.JTextField();
         heightTxtField = new javax.swing.JTextField();
         waistTxtField = new javax.swing.JTextField();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setResizable(false);
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Funkciók"));
 
         bmiButton.setFont(new java.awt.Font("Droid Serif", 1, 36)); // NOI18N
         bmiButton.setText("BMI");
         bmiButton.setToolTipText("Testtömegindex");
-        bmiButton.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                bmiButtonMouseClicked(evt);
-            }
-        });
         bmiButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 bmiButtonActionPerformed(evt);
@@ -96,7 +99,12 @@ public class Functions extends javax.swing.JFrame {
 
         whtrButton.setFont(new java.awt.Font("Droid Serif", 1, 36)); // NOI18N
         whtrButton.setText("WHtR");
-        whtrButton.setToolTipText("Magasság-derék arány");
+        whtrButton.setToolTipText("Derék-magasság arány");
+        whtrButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                whtrButtonActionPerformed(evt);
+            }
+        });
 
         reportButton.setText("Riport");
         reportButton.setMaximumSize(new java.awt.Dimension(68, 29));
@@ -173,30 +181,48 @@ public class Functions extends javax.swing.JFrame {
             }
         });
 
+        jLabel1.setText("kg");
+
+        jLabel2.setText("cm");
+
+        jLabel6.setText("cm");
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(modifierButton))
-            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(nameLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(dateLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(nameLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(dateLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel3)
                             .addComponent(jLabel4)
-                            .addComponent(jLabel5)
-                            .addComponent(jLabel3))
+                            .addComponent(jLabel5))
                         .addGap(18, 18, 18)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(waistTxtField, javax.swing.GroupLayout.DEFAULT_SIZE, 70, Short.MAX_VALUE)
-                            .addComponent(heightTxtField)
-                            .addComponent(weightTxtField))))
-                .addContainerGap(76, Short.MAX_VALUE))
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addComponent(weightTxtField, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jLabel1))
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addComponent(heightTxtField, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jLabel2))
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addComponent(waistTxtField, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jLabel6)))
+                        .addContainerGap(49, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                        .addGap(0, 169, Short.MAX_VALUE)
+                        .addComponent(modifierButton))))
         );
+
+        jPanel2Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {heightTxtField, waistTxtField, weightTxtField});
+
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
@@ -207,15 +233,18 @@ public class Functions extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
-                    .addComponent(weightTxtField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(weightTxtField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel1))
                 .addGap(36, 36, 36)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(heightTxtField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel4))
+                    .addComponent(jLabel4)
+                    .addComponent(jLabel2))
                 .addGap(40, 40, 40)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(waistTxtField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel5))
+                    .addComponent(jLabel5)
+                    .addComponent(jLabel6))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(modifierButton))
         );
@@ -248,10 +277,6 @@ public class Functions extends javax.swing.JFrame {
         FrameContainer.showReport();
         FrameContainer.hideFunctions();
     }//GEN-LAST:event_reportButtonMouseClicked
-
-    private void bmiButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bmiButtonMouseClicked
-
-    }//GEN-LAST:event_bmiButtonMouseClicked
 
     private void weightTxtFieldKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_weightTxtFieldKeyTyped
         char c = evt.getKeyChar();
@@ -300,6 +325,11 @@ public class Functions extends javax.swing.JFrame {
         ServiceLocator.getUserDataService().modifyUserAttribute(userAttributeVOModify);
     }//GEN-LAST:event_modifierButtonActionPerformed
 
+    private void whtrButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_whtrButtonActionPerformed
+        FrameContainer.showResult("whtr");
+        FrameContainer.hideFunctions();
+    }//GEN-LAST:event_whtrButtonActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -310,9 +340,12 @@ public class Functions extends javax.swing.JFrame {
     private javax.swing.JButton bsiButton;
     private javax.swing.JLabel dateLabel;
     private javax.swing.JTextField heightTxtField;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JButton modifierButton;
