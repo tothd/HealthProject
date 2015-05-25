@@ -1,0 +1,7 @@
+/health/shared/target/
+/health/business/target/
+/health/gui/target/
+/health/target/
+.classpath
+.project
+.settings/
