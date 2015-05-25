@@ -96,7 +96,7 @@
               <Font name="Droid Serif" size="36" style="1"/>
             </Property>
             <Property name="text" type="java.lang.String" value="BMI"/>
-            <Property name="toolTipText" type="java.lang.String" value="Testt&#xf6;megindex"/>
+            <Property name="toolTipText" type="java.lang.String" value="Testt&#xf6;meg-index"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="bmiButtonActionPerformed"/>
@@ -108,7 +108,7 @@
               <Font name="Droid Serif" size="36" style="1"/>
             </Property>
             <Property name="text" type="java.lang.String" value="BSI"/>
-            <Property name="toolTipText" type="java.lang.String" value="Testformaindex"/>
+            <Property name="toolTipText" type="java.lang.String" value="Testforma-index"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="bsiButtonActionPerformed"/>
@@ -137,7 +137,7 @@
             </Property>
           </Properties>
           <Events>
-            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="reportButtonMouseClicked"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="reportButtonActionPerformed"/>
           </Events>
         </Component>
       </SubComponents>

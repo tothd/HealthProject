@@ -1,15 +1,8 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package hu.unideb.health.business.dao.impl;
 
 import hu.unideb.health.business.dao.AbstractGenericDao;
 import hu.unideb.health.business.dao.UserIndexesDao;
 import hu.unideb.health.shared.vo.ReportIndexDataVO;
-import hu.unideb.health.shared.vo.ReportVO;
-import hu.unideb.health.shared.vo.UserAttributeVO;
 import hu.unideb.health.shared.vo.UserIndexesVO;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -19,23 +12,24 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import org.slf4j.LoggerFactory;
 
-/**
- *
- * @author toth
- */
 public class UserIndexesDaoImpl extends AbstractGenericDao<UserIndexesVO> implements UserIndexesDao {
 
     public UserIndexesDaoImpl(Connection conn) {
         super(conn);
     }
 
+    private static final org.slf4j.Logger logger = LoggerFactory.getLogger(UserIndexesDaoImpl.class);
+
     private static final String DATE_FORMAT = "yyyy.MM.dd HH:mm:ss:SSS";
 
     @Override
     public List<ReportIndexDataVO> findAllIndexesByUserId(long id) {
+
+        if (logger.isDebugEnabled()) {
+            logger.debug("User id parameter: " + id);
+        }
 
         List<ReportIndexDataVO> reportList = new ArrayList<ReportIndexDataVO>();
         try (PreparedStatement stmt = this.conn.prepareStatement("Select bmi,bsi,whtr,creationdate from "
@@ -43,6 +37,7 @@ public class UserIndexesDaoImpl extends AbstractGenericDao<UserIndexesVO> implem
                 + " user_indexes.attribute_fk=user_attributes.id "
                 + " join user on user.id=user_attributes.user_fk "
                 + " where user.id=?")) {
+            logger.info("Connection succesfull.");
             stmt.setLong(1, id);
             try (ResultSet rset = stmt.executeQuery()) {
                 while (rset.next()) {
@@ -54,7 +49,8 @@ public class UserIndexesDaoImpl extends AbstractGenericDao<UserIndexesVO> implem
                     try {
                         reportIndexes.setCreationDate(new SimpleDateFormat(DATE_FORMAT).parse(rset.getString("creationdate")));
                     } catch (ParseException ex) {
-                        Logger.getLogger(UserIndexesDaoImpl.class.getName()).log(Level.SEVERE, null, ex);
+
+                        logger.error(ex.getMessage(), ex);
                     }
 
                     reportList.add(reportIndexes);
@@ -62,8 +58,8 @@ public class UserIndexesDaoImpl extends AbstractGenericDao<UserIndexesVO> implem
             }
 
         } catch (SQLException ex) {
-            //TODO log
-            ex.printStackTrace();
+            logger.info("Connection unsuccesfull.");
+            logger.error(ex.getMessage(), ex);
         }
 
         return reportList;
@@ -101,6 +97,29 @@ public class UserIndexesDaoImpl extends AbstractGenericDao<UserIndexesVO> implem
     @Override
     protected void setDeleteVariable(PreparedStatement stmt, UserIndexesVO instance) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public UserIndexesVO findUserIndexesByAttributeId(long id) {
+        UserIndexesVO userIndexesVO = new UserIndexesVO();
+        try (PreparedStatement stmt = this.conn.prepareStatement("Select bmi,bsi,whtr "
+                + " from user_indexes join user_attributes on "
+                + " user_indexes.attribute_fk=user_attributes.id "
+                + " where user_attributes.id=?")) {
+            stmt.setLong(1, id);
+            try (ResultSet rset = stmt.executeQuery()) {
+                while (rset.next()) {
+                    userIndexesVO.setBmi(rset.getDouble("BMI"));
+                    userIndexesVO.setBsi(rset.getDouble("BSI"));
+                    userIndexesVO.setWhtr(rset.getDouble("WHTR"));
+                    userIndexesVO.setUserAttributeId(id);
+                }
+            }
+        } catch (SQLException ex) {
+            logger.info("Connection unsuccesfull.");
+            logger.error(ex.getMessage(), ex);
+        }
+        return userIndexesVO;
     }
 
 }

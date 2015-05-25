@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package hu.unideb.health.gui;
 
 import hu.unideb.health.business.service.impl.ServiceLocator;
@@ -10,13 +5,9 @@ import hu.unideb.health.shared.exception.ExistingUserException;
 import hu.unideb.health.shared.vo.UserAttributeVO;
 import hu.unideb.health.shared.vo.UserVO;
 import java.awt.event.KeyEvent;
-import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.swing.ButtonModel;
 
 /**
  *

@@ -10,9 +10,16 @@
     </parent>
     <artifactId>business</artifactId>
     <name>business</name>
-    <url>http://maven.apache.org</url>
     
-    <!-- description developer -->
+    <description>A projekt szolgálatásainak és adatbázis műveleteinek
+        az implementációi</description>
+    
+    <developers>
+        <developer>
+            <name>Tóth Dániel</name>
+            <email>dponttoth@gmail.com</email>
+        </developer>
+    </developers>
     
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -50,6 +57,28 @@
                 <artifactId>cobertura-maven-plugin</artifactId>
                 <version>2.7</version>
             </plugin>
-        </plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-checkstyle-plugin</artifactId>
+                <version>2.15</version>
+                <reportSets>
+                    <reportSet>
+                        <reports>
+                            <report>checkstyle</report>
+                        </reports>
+                    </reportSet>
+                </reportSets>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <version>2.10.3</version>
+            </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-jxr-plugin</artifactId>
+                    <version>2.5</version>
+                </plugin>
+            </plugins>
     </reporting>
 </project>

@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package hu.unideb.health.gui;
 
 import hu.unideb.health.business.service.impl.ServiceLocator;
@@ -12,10 +7,6 @@ import java.awt.event.KeyEvent;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-/**
- *
- * @author toth
- */
 public class Functions extends javax.swing.JFrame {
 
     /**
@@ -27,16 +18,15 @@ public class Functions extends javax.swing.JFrame {
 
     private UserAttributeVO userAttributeVO;
     private static final String DATE_FORMAT = "yyyy.MM.dd HH:mm:ss";
-    
-    
+
     @Override
     public void setVisible(boolean b) {
         if (b) {
             UserVO user = FrameContainer.getSignedUser();
             nameLabel.setText(user.getName());
-            userAttributeVO= ServiceLocator.getUserDataService().findUserDataModificationById(user.getId());
-            
-            SimpleDateFormat dateFormatter=new SimpleDateFormat(DATE_FORMAT);
+            userAttributeVO = ServiceLocator.getUserDataService().findUserDataModificationById(user.getId());
+
+            SimpleDateFormat dateFormatter = new SimpleDateFormat(DATE_FORMAT);
             dateLabel.setText(dateFormatter.format(userAttributeVO.getCreationDate()));
 
             heightTxtField.setText(new String(userAttributeVO.getHeight() + ""));
@@ -81,7 +71,7 @@ public class Functions extends javax.swing.JFrame {
 
         bmiButton.setFont(new java.awt.Font("Droid Serif", 1, 36)); // NOI18N
         bmiButton.setText("BMI");
-        bmiButton.setToolTipText("Testtömegindex");
+        bmiButton.setToolTipText("Testtömeg-index");
         bmiButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 bmiButtonActionPerformed(evt);
@@ -90,7 +80,7 @@ public class Functions extends javax.swing.JFrame {
 
         bsiButton.setFont(new java.awt.Font("Droid Serif", 1, 36)); // NOI18N
         bsiButton.setText("BSI");
-        bsiButton.setToolTipText("Testformaindex");
+        bsiButton.setToolTipText("Testforma-index");
         bsiButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 bsiButtonActionPerformed(evt);
@@ -109,9 +99,9 @@ public class Functions extends javax.swing.JFrame {
         reportButton.setText("Riport");
         reportButton.setMaximumSize(new java.awt.Dimension(68, 29));
         reportButton.setMinimumSize(new java.awt.Dimension(68, 29));
-        reportButton.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                reportButtonMouseClicked(evt);
+        reportButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                reportButtonActionPerformed(evt);
             }
         });
 
@@ -273,11 +263,6 @@ public class Functions extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void reportButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_reportButtonMouseClicked
-        FrameContainer.showReport();
-        FrameContainer.hideFunctions();
-    }//GEN-LAST:event_reportButtonMouseClicked
-
     private void weightTxtFieldKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_weightTxtFieldKeyTyped
         char c = evt.getKeyChar();
         if (!(Character.isDigit(c) || c == KeyEvent.VK_BACK_SPACE || c == KeyEvent.VK_DELETE)) {
@@ -313,8 +298,8 @@ public class Functions extends javax.swing.JFrame {
 
     private void modifierButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_modifierButtonActionPerformed
         //modifyUserData 
-        
-        UserAttributeVO userAttributeVOModify=new UserAttributeVO();
+
+        UserAttributeVO userAttributeVOModify = new UserAttributeVO();
         userAttributeVOModify.setUserId(FrameContainer.getSignedUser().getId());
         userAttributeVOModify.setBirthDate(userAttributeVO.getBirthDate());
         userAttributeVOModify.setCreationDate(new Date());
@@ -330,10 +315,14 @@ public class Functions extends javax.swing.JFrame {
         FrameContainer.hideFunctions();
     }//GEN-LAST:event_whtrButtonActionPerformed
 
+    private void reportButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_reportButtonActionPerformed
+        FrameContainer.showReport();
+        FrameContainer.hideFunctions();
+    }//GEN-LAST:event_reportButtonActionPerformed
+
     /**
      * @param args the command line arguments
      */
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton bmiButton;

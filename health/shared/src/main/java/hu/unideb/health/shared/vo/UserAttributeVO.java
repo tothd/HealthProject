@@ -1,18 +1,13 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package hu.unideb.health.shared.vo;
 
 import java.io.Serializable;
 import java.util.Date;
 
 /**
- *
- * @author toth
+ * A felhasználó fizikai jellemzőit tartalmazó osztály.
  */
-public class UserAttributeVO implements Serializable{
+public class UserAttributeVO implements Serializable {
+
     private int height;
     private int weight;
     private int waist;
@@ -20,11 +15,20 @@ public class UserAttributeVO implements Serializable{
     private long userId;
     private String gender;
     private Date birthDate;
+    private long userAttributeId;
 
     public Date getBirthDate() {
         return birthDate;
     }
 
+    public long getUserAttributeId() {
+        return userAttributeId;
+    }
+
+    public void setUserAttributeId(long userAttributeId) {
+        this.userAttributeId = userAttributeId;
+    }
+    
     public void setBirthDate(Date birthDate) {
         this.birthDate = birthDate;
     }
@@ -36,7 +40,6 @@ public class UserAttributeVO implements Serializable{
     public void setGender(String gender) {
         this.gender = gender;
     }
-    
 
     public long getUserId() {
         return userId;
@@ -45,7 +48,6 @@ public class UserAttributeVO implements Serializable{
     public void setUserId(long userId) {
         this.userId = userId;
     }
-    
 
     public int getHeight() {
         return height;
@@ -78,6 +80,5 @@ public class UserAttributeVO implements Serializable{
     public void setCreationDate(Date creationDate) {
         this.creationDate = creationDate;
     }
-    
-    
+
 }

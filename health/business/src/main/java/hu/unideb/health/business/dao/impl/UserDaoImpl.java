@@ -1,22 +1,22 @@
 package hu.unideb.health.business.dao.impl;
 
+import hu.unideb.health.business.dao.AbstractGenericDao;
+import hu.unideb.health.business.dao.UserDao;
+import hu.unideb.health.shared.vo.UserVO;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-
-import hu.unideb.health.business.dao.AbstractGenericDao;
-import hu.unideb.health.business.dao.UserDao;
-import hu.unideb.health.shared.vo.UserVO;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class UserDaoImpl extends AbstractGenericDao<UserVO> implements UserDao {
+
+    private static final Logger logger = LoggerFactory.getLogger(UserDaoImpl.class);
 
     public UserDaoImpl(Connection conn) {
         super(conn);
     }
-    
 
     @Override
     protected String getInsertSql() {
@@ -32,14 +32,12 @@ public class UserDaoImpl extends AbstractGenericDao<UserVO> implements UserDao {
 
     @Override
     protected String getUpdateSql() {
-        // TODO Auto-generated method stub
         return null;
     }
 
     @Override
     protected void setUpdateVariable(PreparedStatement stmt, UserVO instance) {
-        // TODO Auto-generated method stub
-
+        throw new UnsupportedOperationException();
     }
 
     @Override
@@ -55,6 +53,9 @@ public class UserDaoImpl extends AbstractGenericDao<UserVO> implements UserDao {
     @Override
     public UserVO findByNameAndPassword(String name, String password)
             throws SQLException {
+        if (logger.isDebugEnabled()) {
+            logger.debug("User name parameter: " + name);
+        }
         UserVO result = null;
         try (PreparedStatement stmt = this.conn
                 .prepareStatement("select * from user where name = ? and password = ?");) {
@@ -73,13 +74,16 @@ public class UserDaoImpl extends AbstractGenericDao<UserVO> implements UserDao {
 
     @Override
     public UserVO findById(Long id) throws SQLException {
-        UserVO result=null;
-        try (PreparedStatement stmt=this.conn
-                    .prepareStatement("select * from user where id= ?");){
+        if (logger.isDebugEnabled()) {
+            logger.debug("User id parameter: " + id);
+        }
+        UserVO result = null;
+        try (PreparedStatement stmt = this.conn
+                .prepareStatement("select * from user where id= ?");) {
             stmt.setLong(1, id);
-            ResultSet rs=stmt.executeQuery();
-            while(rs.next() && result==null){
-                result=new UserVO();
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next() && result == null) {
+                result = new UserVO();
                 result.setId(id);
                 result.setName(rs.getString("name"));
                 result.setPassword(rs.getString("password"));

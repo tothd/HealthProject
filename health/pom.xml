@@ -8,7 +8,9 @@
     <packaging>pom</packaging>
 
     <name>health</name>
-    <description></description>
+    <description>A felhasználó fizikai jellemzői alapján meghatároz
+        különbző indexeket, amelyek fontos mérőszámok lehetnek az 
+        egészséges életmódhoz</description>
     
     <developers>
         <developer>
@@ -83,6 +85,42 @@
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-surefire-report-plugin</artifactId>
                     <version>2.18.1</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-enforcer-plugin</artifactId>
+                    <version>1.4</version>
+                    <executions>
+                        <execution>
+                            <id>enforce-versions</id>
+                            <goals>
+                                <goal>enforce</goal>
+                            </goals>
+                            <configuration>
+                                <rules>
+                                    <bannedPlugins>
+                                        <!-- will only display a warning but does not fail the build. -->
+                                        <level>WARN</level>
+                                        <excludes>
+                                            <exclude>org.apache.maven.plugins:maven-verifier-plugin</exclude>
+                                        </excludes>
+                                        <message>Please consider using the maven-invoker-plugin (http://maven.apache.org/plugins/maven-invoker-plugin/)!</message>
+                                    </bannedPlugins>
+                                    <requireMavenVersion>
+                                        <version>2.0.6</version>
+                                    </requireMavenVersion>
+                        
+                                    <requireJavaVersion>
+                                        <version>[1.7,)</version>
+                                    </requireJavaVersion>
+                                    <requireOS>
+                                        <family>unix</family>
+                                        <family>windows</family>
+                                    </requireOS>
+                                </rules>
+                            </configuration>
+                        </execution>
+                    </executions>
                 </plugin>
             </plugins>
         </pluginManagement>

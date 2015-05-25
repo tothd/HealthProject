@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package hu.unideb.health.gui;
 
 import hu.unideb.health.business.service.impl.ServiceLocator;
@@ -11,7 +6,6 @@ import hu.unideb.health.shared.vo.ReportIndexDataVO;
 import hu.unideb.health.shared.vo.ReportVO;
 import hu.unideb.health.shared.vo.UserVO;
 import java.io.FileOutputStream;
-import java.io.FileWriter;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.text.SimpleDateFormat;

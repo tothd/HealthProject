@@ -1,6 +1,5 @@
 package hu.unideb.health.business.dao;
 
-import java.awt.Insets;
 import java.io.Serializable;
 import java.sql.Connection;
 import java.sql.PreparedStatement;

@@ -1,17 +1,12 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package hu.unideb.health.shared.vo;
 
 import java.io.Serializable;
 
 /**
- *
- * @author toth
+ * Az indexeket és a fizikai jellemzőek azonosítóját tartalmazó osztály.
  */
-public class UserIndexesVO implements Serializable{
+public class UserIndexesVO implements Serializable {
+
     private long userAttributeId;
     private double bmi;
     private double bsi;
@@ -48,6 +43,5 @@ public class UserIndexesVO implements Serializable{
     public void setWhtr(double whtr) {
         this.whtr = whtr;
     }
-    
-    
+
 }

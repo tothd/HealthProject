@@ -10,6 +10,7 @@ import hu.unideb.health.shared.service.ExportService;
 import hu.unideb.health.shared.vo.ReportIndexDataVO;
 import hu.unideb.health.shared.vo.ReportVO;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import org.junit.Assert;
 import org.junit.Test;
@@ -27,6 +28,24 @@ public class ExportServiceTest {
         ReportIndexDataVO test = new ReportIndexDataVO();
         test.setBmi(1);
         test.setBsi(2);
+        dataList.add(test);
+        testReport.setData(dataList);
+        testReport.setUsername("my user");
+        byte[] result = ExportServiceImpl.getInstance().export(testReport, ExportService.EXPORT_TYPE.XML);
+        XStream stream = new XStream();
+        ReportVO streamResult = (ReportVO) stream.fromXML(new String(result));
+        Assert.assertEquals(streamResult.getUsername(), testReport.getUsername());
+    }
+    
+    
+    @Test
+    public void exportTest2(){
+        ReportVO testReport = new ReportVO();
+        List<ReportIndexDataVO> dataList = new ArrayList<ReportIndexDataVO>();
+        ReportIndexDataVO test = new ReportIndexDataVO();
+        test.setBmi(1);
+        test.setWhtr(2);
+        test.setCreationDate(new Date());
         dataList.add(test);
         testReport.setData(dataList);
         testReport.setUsername("my user");

@@ -11,7 +11,16 @@
     <groupId>hu.unideb</groupId>
     <artifactId>gui</artifactId>
     <name>gui</name>
-    <url>http://maven.apache.org</url>
+    
+    <description>A felhasználói felület</description>
+    
+    <developers>
+        <developer>
+            <name>Tóth Dániel</name>
+            <email>dponttoth@gmail.com</email>
+        </developer>
+    </developers>
+    
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>

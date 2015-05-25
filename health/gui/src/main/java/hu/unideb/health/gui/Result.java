@@ -1,12 +1,8 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package hu.unideb.health.gui;
 
 import hu.unideb.health.business.service.impl.ServiceLocator;
 import hu.unideb.health.shared.vo.UserAttributeVO;
+import hu.unideb.health.shared.vo.UserIndexesVO;
 import hu.unideb.health.shared.vo.UserVO;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
@@ -17,57 +13,32 @@ import java.text.NumberFormat;
  */
 public class Result extends javax.swing.JFrame {
 
-    
-    private UserVO user=FrameContainer.getSignedUser();
-    private UserAttributeVO userAttributeVO=ServiceLocator.getUserDataService().findUserDataModificationById(user.getId());
-    
+    private UserVO user = FrameContainer.getSignedUser();
+    private UserAttributeVO userAttributeVO = ServiceLocator.getUserDataService().findUserDataModificationById(user.getId());
+
     /**
      * Creates new form Result
      */
     public Result(String index) {
         initComponents();
         NumberFormat formatter = new DecimalFormat("#0.000");
+
+        UserIndexesVO userIndexesVO = ServiceLocator.getUserDataService().findUserIndexesById(userAttributeVO.getUserAttributeId());
         
-        bmiNumber.setText(formatter.format(calculateBMI()));
-        bsiNumber.setText(formatter.format(calculateBSI()));
-        whtrNumber.setText(formatter.format(calculateWHtR()));
-        
-        
+        bmiNumber.setText(formatter.format(userIndexesVO.getBmi()));
+        bsiNumber.setText(formatter.format(userIndexesVO.getBsi()));
+        whtrNumber.setText(formatter.format(userIndexesVO.getWhtr()));
+
         if (index.equals("bmi")) {
-            jTabbedPane1.setSelectedIndex(0);  
-        }else if(index.equals("bsi")){
+            jTabbedPane1.setSelectedIndex(0);
+        } else if (index.equals("bsi")) {
             jTabbedPane1.setSelectedIndex(1);
-        }else{
+        } else {
             jTabbedPane1.setSelectedIndex(2);
         }
-        
+
     }
-    
-    private double calculateBMI(){
-        double weight=userAttributeVO.getWeight();
-        double height=userAttributeVO.getHeight();
-        Double bmiResult=weight/Math.pow((height/100), 2);
-            
-        return bmiResult;
-    }
-    
-    private double calculateBSI(){
-        
-        double bmi=(calculateBMI()/3)*2;
-        double waist=userAttributeVO.getWaist();
-        double height=userAttributeVO.getHeight();
-        
-        Double bsiResult=waist/(bmi*height);
-        return bsiResult;
-    }
-    
-    private double calculateWHtR(){
-        
-        double waist=userAttributeVO.getWaist();
-        double height=userAttributeVO.getHeight();
-        
-        return waist/height;
-    }
+
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -89,9 +60,13 @@ public class Result extends javax.swing.JFrame {
         bsiPanel = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         bsiNumber = new javax.swing.JLabel();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        jTextArea2 = new javax.swing.JTextArea();
         jPanel1 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         whtrNumber = new javax.swing.JLabel();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        jTextArea3 = new javax.swing.JTextArea();
         saveButton = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
 
@@ -177,25 +152,31 @@ public class Result extends javax.swing.JFrame {
 
         bsiNumber.setFont(new java.awt.Font("Ubuntu", 1, 24)); // NOI18N
 
+        jTextArea2.setColumns(20);
+        jTextArea2.setRows(5);
+        jTextArea2.setText("Az elhízást főleg a BMI indexhez kapcsolódő küszöbszámokat meghaladó értékeknél\nállapították meg. De kiderült, hogy a kockázat jelentősen függ a testformától is, főleg a hasi\nfeleslegtől. A testforma, amit a testforma index alapján mérnek tényleges kockázati\ntényezőként jelent meg a mai generáció korai halálozási tényezői között orvosi kutatások\nalapján.");
+        jScrollPane3.setViewportView(jTextArea2);
+
         javax.swing.GroupLayout bsiPanelLayout = new javax.swing.GroupLayout(bsiPanel);
         bsiPanel.setLayout(bsiPanelLayout);
         bsiPanelLayout.setHorizontalGroup(
             bsiPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, bsiPanelLayout.createSequentialGroup()
-                .addContainerGap(135, Short.MAX_VALUE)
+            .addComponent(jScrollPane3)
+            .addGroup(bsiPanelLayout.createSequentialGroup()
+                .addGap(133, 133, 133)
                 .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 198, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(bsiNumber, javax.swing.GroupLayout.PREFERRED_SIZE, 204, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(115, 115, 115))
+                .addContainerGap(123, Short.MAX_VALUE))
         );
         bsiPanelLayout.setVerticalGroup(
             bsiPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, bsiPanelLayout.createSequentialGroup()
-                .addContainerGap(245, Short.MAX_VALUE)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 189, Short.MAX_VALUE)
                 .addGroup(bsiPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(bsiNumber, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(53, 53, 53))
+                    .addComponent(bsiNumber, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)))
         );
 
         jTabbedPane1.addTab("BSI", bsiPanel);
@@ -204,6 +185,10 @@ public class Result extends javax.swing.JFrame {
         jLabel3.setText("Az eredményed:");
 
         whtrNumber.setFont(new java.awt.Font("Ubuntu", 1, 24)); // NOI18N
+
+        jTextArea3.setColumns(20);
+        jTextArea3.setRows(5);
+        jScrollPane4.setViewportView(jTextArea3);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -215,15 +200,17 @@ public class Result extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(whtrNumber, javax.swing.GroupLayout.PREFERRED_SIZE, 204, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(122, Short.MAX_VALUE))
+            .addComponent(jScrollPane4)
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(236, Short.MAX_VALUE)
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 146, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(whtrNumber, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(62, 62, 62))
+                .addGap(20, 20, 20))
         );
 
         jTabbedPane1.addTab("WHtR", jPanel1);
@@ -247,7 +234,7 @@ public class Result extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(saveButton)
                 .addContainerGap())
-            .addComponent(jTabbedPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 672, Short.MAX_VALUE)
+            .addComponent(jTabbedPane1, javax.swing.GroupLayout.Alignment.TRAILING)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -271,8 +258,6 @@ public class Result extends javax.swing.JFrame {
     /**
      * @param args the command line arguments
      */
-   
-    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel bmiNumber;
@@ -286,9 +271,13 @@ public class Result extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTable jTable1;
     private javax.swing.JTextArea jTextArea1;
+    private javax.swing.JTextArea jTextArea2;
+    private javax.swing.JTextArea jTextArea3;
     private javax.swing.JButton saveButton;
     private javax.swing.JLabel whtrNumber;
     // End of variables declaration//GEN-END:variables
