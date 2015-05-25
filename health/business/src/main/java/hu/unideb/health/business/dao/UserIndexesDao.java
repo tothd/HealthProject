@@ -18,6 +18,13 @@ public interface UserIndexesDao extends GenericDao<UserIndexesVO> {
      * @return A felhasználó indexeit tartalmazó lista.
      */
     List<ReportIndexDataVO> findAllIndexesByUserId(long id);
-    
+
+    /**
+     * Megtalálja az adatbázisban a felhasználó indexeit a fizikai paraméterek
+     * azonosítója alapján.
+     *
+     * @param id A paraméterek {@code int} azonosítója.
+     * @return A felhasználó indexeit tároló osztály.
+     */
     UserIndexesVO findUserIndexesByAttributeId(long id);
 }

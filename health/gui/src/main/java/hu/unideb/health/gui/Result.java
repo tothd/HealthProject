@@ -16,9 +16,6 @@ public class Result extends javax.swing.JFrame {
     private UserVO user = FrameContainer.getSignedUser();
     private UserAttributeVO userAttributeVO = ServiceLocator.getUserDataService().findUserDataModificationById(user.getId());
 
-    /**
-     * Creates new form Result
-     */
     public Result(String index) {
         initComponents();
         NumberFormat formatter = new DecimalFormat("#0.000");
@@ -255,9 +252,6 @@ public class Result extends javax.swing.JFrame {
         FrameContainer.hideResult();
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel bmiNumber;

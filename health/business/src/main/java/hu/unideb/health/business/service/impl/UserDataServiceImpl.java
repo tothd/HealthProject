@@ -1,11 +1,7 @@
 package hu.unideb.health.business.service.impl;
 
-import hu.unideb.health.business.calculator.CalculateBMI;
-import hu.unideb.health.business.calculator.CalculateBSI;
-import hu.unideb.health.business.calculator.CalculateWHtR;
 import hu.unideb.health.business.dao.DaoFactory;
 import hu.unideb.health.business.dao.DaoFactory.DAO_TYPE;
-import hu.unideb.health.business.dao.GenericDao;
 import hu.unideb.health.business.dao.UserAttributeDao;
 import hu.unideb.health.business.dao.UserDao;
 import hu.unideb.health.business.dao.UserIndexesDao;
@@ -15,17 +11,35 @@ import hu.unideb.health.shared.service.UserDataService;
 import hu.unideb.health.shared.vo.UserAttributeVO;
 import hu.unideb.health.shared.vo.UserIndexesVO;
 import hu.unideb.health.shared.vo.UserVO;
-import java.io.Serializable;
 import java.sql.Connection;
 import java.sql.SQLException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * Felhasználóval kapcsolatos adatok adatbázisműveleteinek az implementációja.
+ */
 class UserDataServiceImpl implements UserDataService {
 
     private static final Logger logger = LoggerFactory.getLogger(UserDataServiceImpl.class);
+    
+    /**
+     * Singleton példányt hoz létre.
+     */
     private static final UserDataServiceImpl instance = new UserDataServiceImpl();
 
+    /**
+     * Privát konstruktor singletonhoz.
+     */
+    private UserDataServiceImpl(){
+        
+    }
+    
+    /**
+     * Singleton példányt ad vissza.
+     *
+     * @return Singleton példány.
+     */
     public static UserDataServiceImpl getInstance() {
         return instance;
     }

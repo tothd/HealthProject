@@ -20,7 +20,7 @@ public interface UserDataService {
      * @param userAttribute A felhasználó fizikai jellemzőit tartalmazó osztály.
      * @return A felhasználó nevét, azonosítóját és jelszavát tartalmazó
      * osztály, amit elhelyeztünk az adatbázisban.
-     * @throws ExistingUserException
+     * @throws ExistingUserException létező felhasználó esetén keletkező hiba.
      */
     UserVO createUser(UserVO user, UserAttributeVO userAttribute) throws ExistingUserException;
 
@@ -30,7 +30,7 @@ public interface UserDataService {
      * @param name Felhasználó neve.
      * @param password Felhasználó jelszava,
      * @return Megtalált felhasználó névvel, azonosítóval, jelszóval.
-     * @throws UserNotFoundException
+     * @throws UserNotFoundException Nem létező felhasználó esetén keletkező hiba.
      */
     UserVO findByNameAndPassword(String name, String password) throws UserNotFoundException;
 

@@ -6,7 +6,7 @@ import java.sql.SQLException;
 /**
  * Generikus, adatbázis műveletekhez.
  *
- * @param <T>
+ * @param <T> gerikus típus a dao-hoz.
  */
 public interface GenericDao<T extends Serializable> {
 

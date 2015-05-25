@@ -34,7 +34,7 @@ public class DaoFactory {
     /**
      * Visszaadja egy Dao implementációját.
      *
-     * @param <D>
+     * @param <D> {@link GenericDao}-ból származó Dao.
      * @param conn Adatbáziskapcsolatot megvalósító Connection.
      * @param type Dao típusa.
      * @return A typeba megadott típusu Dao implementációjával tér vissza.

@@ -3,17 +3,27 @@ package hu.unideb.health.business.calculator;
 import hu.unideb.health.shared.vo.UserAttributeVO;
 
 /**
- *
- * @author toth
+ * Kiszámolja a testtömeg-indexet.
  */
-public class CalculateBMI implements Calculator {
+public final class CalculateBMI implements Calculator {
 
+    /**
+     * Singleton példányt hoz létre.
+     */
     private static final CalculateBMI instance = new CalculateBMI();
 
+    /**
+     * Privát konstruktor singletonhoz.
+     */
     private CalculateBMI() {
 
     }
 
+    /**
+     * Singleton példányt ad vissza.
+     *
+     * @return Singleton példány.
+     */
     public static CalculateBMI getInstance() {
         return instance;
     }

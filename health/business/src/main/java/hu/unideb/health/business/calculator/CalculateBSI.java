@@ -2,14 +2,28 @@ package hu.unideb.health.business.calculator;
 
 import hu.unideb.health.shared.vo.UserAttributeVO;
 
-public class CalculateBSI implements Calculator {
-
+/**
+ * Kiszámolja a testforma-indexet.
+ */
+public final class CalculateBSI implements Calculator {
+    
+    /**
+     * Singleton példányt hoz létre.
+     */
     private static final CalculateBSI instance = new CalculateBSI();
-
+    
+    /**
+     * Privát konstruktor singletonhoz.
+     */
     private CalculateBSI() {
 
     }
 
+    /**
+     * Singleton példányt ad vissza.
+     *
+     * @return Singleton példány.
+     */
     public static CalculateBSI getInstance() {
         return instance;
     }

@@ -10,10 +10,20 @@ import java.sql.SQLException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * A felhasználó adatainak az adatbázis műveletei.
+ */
 public class UserDaoImpl extends AbstractGenericDao<UserVO> implements UserDao {
 
+    /**
+     * Loggoláshoz használt konstans.
+     */
     private static final Logger logger = LoggerFactory.getLogger(UserDaoImpl.class);
 
+    /**
+     * Adatbázis kapcsolat megvalósításhoz használt metódus.
+     * @param conn Connection típus, amivel kapcsolódunk adatbázishoz.
+     */
     public UserDaoImpl(Connection conn) {
         super(conn);
     }

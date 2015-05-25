@@ -14,14 +14,27 @@ import java.util.ArrayList;
 import java.util.List;
 import org.slf4j.LoggerFactory;
 
+/**
+ * A kiszámított indexek adatbázis műveleteinek az implementációja.
+ */
 public class UserIndexesDaoImpl extends AbstractGenericDao<UserIndexesVO> implements UserIndexesDao {
 
+    /**
+     * Adatbázis kapcsolat megvalósításhoz használt metódus.
+     * @param conn Connection típus, amivel kapcsolódunk adatbázishoz.
+     */
     public UserIndexesDaoImpl(Connection conn) {
         super(conn);
     }
 
+    /**
+     * Loggoláshoz használt konstans.
+     */
     private static final org.slf4j.Logger logger = LoggerFactory.getLogger(UserIndexesDaoImpl.class);
 
+    /**
+     * Dátum formázó konstans.
+     */
     private static final String DATE_FORMAT = "yyyy.MM.dd HH:mm:ss:SSS";
 
     @Override

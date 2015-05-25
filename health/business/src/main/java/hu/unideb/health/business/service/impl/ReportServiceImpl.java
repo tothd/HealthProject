@@ -11,12 +11,32 @@ import java.sql.SQLException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * Megjeleníteni kívánt adatok adatbázis műveleteinek implementációja.
+ */
 public class ReportServiceImpl implements ReportService {
 
+    /**
+     * Loggoláshoz használt konstans.
+     */
     private static final Logger logger = LoggerFactory.getLogger(ReportServiceImpl.class);
 
+    /**
+     * Singleton példányt hoz létre.
+     */
     private static final ReportServiceImpl instance = new ReportServiceImpl();
 
+    /**
+     * Privát konstruktor singletonhoz.
+     */
+    private ReportServiceImpl(){
+        
+    }
+    
+    /**
+     * Singleton példányt ad vissza.
+     * @return Singleton példány.
+     */
     public static ReportServiceImpl getInstance() {
         return instance;
     }

@@ -320,10 +320,6 @@ public class Functions extends javax.swing.JFrame {
         FrameContainer.hideFunctions();
     }//GEN-LAST:event_reportButtonActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton bmiButton;
     private javax.swing.JButton bsiButton;

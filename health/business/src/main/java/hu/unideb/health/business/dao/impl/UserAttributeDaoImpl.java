@@ -18,12 +18,25 @@ import java.text.SimpleDateFormat;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * Felhasználó fitikai paramétereinek adatbázis műveleteivel foglalkozó osztály.
+ */
 public class UserAttributeDaoImpl extends AbstractGenericDao<UserAttributeVO> implements UserAttributeDao {
 
+    /**
+     * Loggoláshoz használt konstans.
+     */
     private static final Logger logger = LoggerFactory.getLogger(UserAttributeDaoImpl.class);
 
+    /**
+     * Dátum formázó konstans.
+     */
     private static final String DATE_FORMAT = "yyyy.MM.dd HH:mm:ss:SSS";
 
+    /**
+     * Adatbázis kapcsolat megvalósításhoz használt metódus.
+     * @param conn Connection típus, amivel kapcsolódunk adatbázishoz.
+     */
     public UserAttributeDaoImpl(Connection conn) {
         super(conn);
     }
@@ -102,7 +115,7 @@ public class UserAttributeDaoImpl extends AbstractGenericDao<UserAttributeVO> im
 
         UserAttributeVO result = null;
         try (PreparedStatement stmt = this.conn
-                .prepareStatement("select * from user_attributes "
+                .prepareStatement("select height,weight,waist, creationdate, birth_date, gender, user.id as userid, user_attributes.id as uaid from user_attributes "
                         + "join user on user.id=user_attributes."
                         + "user_fk where user.id = ? order by creationdate desc");) {
             stmt.setLong(1, id);
@@ -115,7 +128,8 @@ public class UserAttributeDaoImpl extends AbstractGenericDao<UserAttributeVO> im
                 result.setCreationDate((new SimpleDateFormat(DATE_FORMAT).parse(rs.getString("creationdate"))));
                 result.setBirthDate(new SimpleDateFormat(DATE_FORMAT).parse(rs.getString("birth_date")));
                 result.setGender(rs.getString("gender"));
-                result.setUserAttributeId(rs.getLong("id"));
+                result.setUserAttributeId(rs.getLong("uaid"));
+                result.setUserId(rs.getLong("userid"));
             }
         } catch (ParseException ex) {
             logger.error(ex.getMessage(), ex);

@@ -7,6 +7,10 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+/**
+ * Adatbázis műveleteknek a váza.
+ * @param <T> Egy szerializálható oszály.
+ */
 public abstract class AbstractGenericDao<T extends Serializable> implements GenericDao<T> {
 
     protected final Connection conn;

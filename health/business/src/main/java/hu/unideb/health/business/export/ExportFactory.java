@@ -7,12 +7,22 @@ import hu.unideb.health.shared.service.ExportService.EXPORT_TYPE;
  */
 public class ExportFactory {
 
+    /**
+     * Singleton példányt hoz létre.
+     */
     private static final ExportFactory instance = new ExportFactory();
 
+    /**
+     * Privát konstruktor singletonhoz.
+     */
     private ExportFactory() {
 
     }
 
+    /**
+     * Singleton példányt ad vissza.
+     * @return Singleton példány.
+     */
     public static ExportFactory getInstance() {
         return instance;
     }

@@ -6,14 +6,28 @@ import hu.unideb.health.business.export.XMLExport;
 import hu.unideb.health.shared.service.ExportService;
 import hu.unideb.health.shared.vo.ReportVO;
 
+/**
+ * Exportolást implementáló osztály.
+ */
 public class ExportServiceImpl implements ExportService {
 
+    /**
+     * Singleton példányt hoz létre.
+     */
     private static final ExportServiceImpl instance = new ExportServiceImpl();
 
+    /**
+     * Privát konstruktor singletonhoz.
+     */
     private ExportServiceImpl() {
 
     }
 
+    /**
+     * Singleton példányt ad vissza.
+     *
+     * @return Singleton példány.
+     */
     public static ExportServiceImpl getInstance() {
         return instance;
     }

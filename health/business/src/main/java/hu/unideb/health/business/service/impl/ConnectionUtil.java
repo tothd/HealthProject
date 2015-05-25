@@ -12,10 +12,15 @@ import org.slf4j.LoggerFactory;
  */
 class ConnectionUtil {
 
+    /**
+     * Loggoláshoz használt konstans.
+     */
     private static final Logger logger=LoggerFactory.getLogger(ConnectionUtil.class);
     
-    private static final String DB_FILE_NAME_PREFIX = "file:." + File.separator + "db"
-            + File.separator + "healthdb";
+    /**
+     * A jdbc url.
+     */
+    private static final String DB_FILE_NAME_PREFIX = "jdbc:hsqldb:hsql://localhost/healthdb";
 
     /**
      * Létrehoz egy adaztbázis kapcsolatot.
@@ -29,8 +34,7 @@ class ConnectionUtil {
         } catch (ClassNotFoundException e) {
             logger.error(e.getMessage(),e);
         }
-        Connection conn = DriverManager.getConnection("jdbc:hsqldb:"
-                + DB_FILE_NAME_PREFIX, // filenames
+        Connection conn = DriverManager.getConnection(DB_FILE_NAME_PREFIX,
                 "sa", // username
                 ""); // password
         conn.setAutoCommit(false);

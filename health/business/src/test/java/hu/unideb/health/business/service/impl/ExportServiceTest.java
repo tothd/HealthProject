@@ -48,7 +48,7 @@ public class ExportServiceTest {
         test.setCreationDate(new Date());
         dataList.add(test);
         testReport.setData(dataList);
-        testReport.setUsername("my user");
+        testReport.setUsername("username");
         byte[] result = ExportServiceImpl.getInstance().export(testReport, ExportService.EXPORT_TYPE.XML);
         XStream stream = new XStream();
         ReportVO streamResult = (ReportVO) stream.fromXML(new String(result));
