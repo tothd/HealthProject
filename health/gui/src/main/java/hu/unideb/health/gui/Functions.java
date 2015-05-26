@@ -50,6 +50,7 @@ public class Functions extends javax.swing.JFrame {
         bsiButton = new javax.swing.JButton();
         whtrButton = new javax.swing.JButton();
         reportButton = new javax.swing.JButton();
+        exitButton = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         modifierButton = new javax.swing.JButton();
         nameLabel = new javax.swing.JLabel();
@@ -105,6 +106,13 @@ public class Functions extends javax.swing.JFrame {
             }
         });
 
+        exitButton.setText("Kilépés");
+        exitButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                exitButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -117,7 +125,9 @@ public class Functions extends javax.swing.JFrame {
                     .addComponent(bmiButton, javax.swing.GroupLayout.DEFAULT_SIZE, 164, Short.MAX_VALUE))
                 .addContainerGap(40, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
+                .addContainerGap()
+                .addComponent(exitButton)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(reportButton, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -130,7 +140,9 @@ public class Functions extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(whtrButton, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(reportButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(reportButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(exitButton)))
         );
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Adatok"));
@@ -320,10 +332,15 @@ public class Functions extends javax.swing.JFrame {
         FrameContainer.hideFunctions();
     }//GEN-LAST:event_reportButtonActionPerformed
 
+    private void exitButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exitButtonActionPerformed
+      System.exit(0);
+    }//GEN-LAST:event_exitButtonActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton bmiButton;
     private javax.swing.JButton bsiButton;
     private javax.swing.JLabel dateLabel;
+    private javax.swing.JButton exitButton;
     private javax.swing.JTextField heightTxtField;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
