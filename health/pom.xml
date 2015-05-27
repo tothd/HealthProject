@@ -9,8 +9,8 @@
 
     <name>health</name>
     <description>A felhasználó fizikai jellemzői alapján meghatároz
-        különbző indexeket, amelyek fontos mérőszámok lehetnek az 
-        egészséges életmódhoz</description>
+        különböző indexeket, amelyek fontos mérőszámok lehetnek az 
+        egészséges életmódhoz.</description>
     <inceptionYear>2015</inceptionYear>
     <organization>
         <name>Debreceni Egyetem, Informatikai kar</name>

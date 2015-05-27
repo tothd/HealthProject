@@ -10,7 +10,9 @@ import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import javax.swing.JFileChooser;
+import javax.swing.event.TableModelEvent;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
 
 /**
  *
@@ -38,6 +40,11 @@ public class Report extends javax.swing.JFrame {
 
             DefaultTableModel model = (DefaultTableModel) table.getModel();
 
+            int rowCount = model.getRowCount();
+            for (int i = rowCount - 1; i >= 0; i--) {
+                model.removeRow(i);
+            }
+
             SimpleDateFormat dateFormatter = new SimpleDateFormat(DATE_FORMAT);
             NumberFormat formatter = new DecimalFormat("#0.000");
 
@@ -63,7 +70,6 @@ public class Report extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         table = new javax.swing.JTable();
         exportXMLButton = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
         nameLabel = new javax.swing.JLabel();
         jButton3 = new javax.swing.JButton();
 
@@ -102,8 +108,6 @@ public class Report extends javax.swing.JFrame {
             }
         });
 
-        jButton2.setText("Export HTML");
-
         nameLabel.setText("Név");
 
         jButton3.setText("Vissza");
@@ -123,9 +127,7 @@ public class Report extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jButton3)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(exportXMLButton, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(166, 166, 166)
-                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(exportXMLButton, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 647, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(nameLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -141,7 +143,6 @@ public class Report extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(exportXMLButton)
-                    .addComponent(jButton2)
                     .addComponent(jButton3))
                 .addContainerGap())
         );
@@ -204,7 +205,6 @@ public class Report extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton exportXMLButton;
-    private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel nameLabel;
