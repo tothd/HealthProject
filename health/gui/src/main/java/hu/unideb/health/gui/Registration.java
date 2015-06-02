@@ -274,7 +274,6 @@ public class Registration extends javax.swing.JFrame {
         } else if (maleRButton.isSelected() == false && femaleRButton.isSelected() == false) {
             errorMsg.setText("Mindent ki kell tölteni!");
 
-//Javítani
         } else if (!Arrays.equals(passwordField.getPassword(), passwordField2.getPassword())) {
             errorMsg.setText("A jelszavak nem egyeznek!");
         } else {
